@@ -2,6 +2,9 @@
 A telegram bot shares the list of ebooks with URL, reader can clicks on the link to read the PDF
 ![image](https://user-images.githubusercontent.com/32192638/229261608-8df4dd8e-6904-4b3b-9532-604fa530229e.png)
 
+Example of abov ebook being clicked
+![image](https://user-images.githubusercontent.com/32192638/229261649-55dca661-0c5e-4ef6-aa35-b9c6c4b73e76.png)
+
 # Requirements
 - Google Drive with a folder for eBooks
 - Telegram chatbot token, see https://t.me/BotFather
