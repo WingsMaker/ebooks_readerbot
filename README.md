@@ -21,8 +21,7 @@ Example of above ebook being clicked
 
 https://raw.githubusercontent.com/WingsMaker/ebooks_readerbot/main/ebooks_readerbot.txt
 
-![image](https://user-images.githubusercontent.com/32192638/229261534-28371304-b45e-4674-9a7a-a6f409d4661c.png)
-
+![image](https://user-images.githubusercontent.com/32192638/229261805-e614d884-bfe5-4146-8c92-fccee8509eb1.png)
 
 [3] Rename the project
 
