@@ -1,0 +1,249 @@
+drive = Drive //  click Service + then click Drive to add this service
+var token = "__your telegram bot token____";
+var telegramUrl = "https://api.telegram.org/bot" + token;
+var webhook = "https://script.google.com/macros/s/___your web app__/exec";
+var FOLDER_NAME = "eBooks"; // assuming there is a folder called eBooks in your google drive
+var list_filenames = [];
+var list_urls = [];
+
+function doPost(e) {
+    var contents = JSON.parse(e.postData.contents);
+    var txt = "";  
+    get_filelist();
+    if (contents.callback_query) {
+      var id_callback = contents.callback_query.from.id;
+      var data = contents.callback_query.data;
+      if( data.startsWith("/g") ) {
+        txt = data.replace( "/g", "");
+        txt = txt.trim();
+        var cnt = parseInt(txt);
+        extract_list(id_callback, cnt);
+        return "extraction list"; 
+      }
+      if( data.startsWith("/v") ) {
+        txt = data.replace( "/v", "");
+        txt = txt.trim();
+        var cnt = parseInt(txt);
+        txt = "<a href='" + list_urls[ cnt - 1 ] + "'>" + list_filenames[ cnt - 1 ] + "</a>";
+        sendMessage(id_callback, txt);
+        return;
+      }
+      if (txt.length > 0) {
+        txt = find_book( id, txt);
+        Utilities.sleep(200);
+        sendMessage(id_callback, txt);
+        return txt;
+      }
+    } else if (contents.message) {
+      var id = contents.message.from.id;
+      var text = contents.message.text;
+      if( text.includes("/start") ) {
+        txt = "Welcome back , " + contents.message.from.first_name + "!";
+        sendMessage(id, txt);
+        Utilities.sleep(200);
+        summary_list( id );
+        return;
+      }
+      if( text.startsWith("/?") == true ) {
+        txt = "Hi" + contents.message.from.first_name + ", ";
+        txt = txt + "your telegram chat_id is : " + id;
+        sendMessage(id, txt);
+        return txt;
+      }
+      if( text.length > 0) {
+        txt = find_book( text );
+        sendMessage(id, txt);
+        return;
+      }
+  }
+}
+
+function find_book(keywords) {
+  var txt = "Results:\n";
+  var kw = keywords.toLowerCase();
+  var fn = "";
+  var fp = "";
+  var cnt = list_filenames.length;
+  for (var i = 1; i <= cnt; i++) {
+    fn = list_filenames[i-1];
+    fp = list_urls[i-1];
+    if ( fn.toLowerCase().indexOf(kw) >= 0 ) {
+      txt = txt + "<a href='" + fp + "'>" + fn + "</a>\n\n";
+    }  
+  }
+  return txt;
+}
+
+function get_filelist() {
+  var MyFolder = DriveApp.getFoldersByName(FOLDER_NAME)
+  var folder = MyFolder.next();
+  var contents = folder.getFiles();
+  var file;
+  var name;
+  var link;
+  var txt = '';
+  var cnt = 0;
+  while(contents.hasNext()) {
+    file = contents.next();
+    name = file.getName();
+    link = file.getUrl();
+    list_filenames.push( name );
+    list_urls.push( link );
+    cnt = cnt + 1;
+  }
+  return;
+}
+
+function summary_list( id ) {
+  var cnt = list_filenames.length;
+  var txt = "";
+  var j = 0;
+  var k = 1;
+  var btn_list = [];
+  if ( cnt <= 10 ) {
+    extract_list( id, 1 );
+    return cnt;
+  }
+  for (var i = 1; i <= cnt; i++) {
+    j = parseInt( i / 10) * 10;
+    if ( (i - j)==1) {
+      txt = txt + "Group " + k.toString() + "\n";
+      btn_list.push( "/g" + k.toString() );
+      k = k + 1;
+    }
+    txt = txt + list_filenames[ i-1 ];
+    j = parseInt( i / 10) * 10;
+    txt = txt + "\n";
+    txt = "Select :";
+  }
+  var inline_btn_list = btn_list.map(function(x) { 
+      return([{"text": "Group " + (btn_list.indexOf(x)+1).toString() , "callback_data":x}])});
+  cnt = inline_btn_list.length;
+  var new_row = [];
+  var j = 0;
+  btn_list = [];
+  for (var i = 1; i <= cnt; i++) {
+    var btn = inline_btn_list[i-1];
+    var bitem = btn[0];   
+    j = parseInt( i / 3 ) * 3;
+    new_row.push( bitem );
+    if ( (i==j) || (i==cnt)) {
+      btn_list.push(new_row);
+      new_row = [];
+    }
+  }
+  keyboard = { "inline_keyboard" : btn_list };
+  sendText(id, txt, keyboard );
+  return cnt;
+}
+
+function extract_list( id, grp ) {
+  var cnt = list_filenames.length;
+  var j = 0;
+  var k = 1;
+  var btn_labels = [];
+  var btn_actions = [];
+  for (var i = 1; i <= cnt; i++) {
+    if ( k == grp ) {
+      btn_labels.push(list_filenames[ i-1 ]);
+      btn_actions.push("/v" + i.toString());
+    }
+    j = parseInt( i / 10) * 10;
+    if ( j == i) {
+      k = k + 1;
+    }
+  }
+  var inline_btn_list = btn_labels.map(function(x) { 
+      return( [{ "text": x,"callback_data":btn_actions[ btn_labels.indexOf(x) ]}] ) });
+  cnt = inline_btn_list.length;
+  keyboard = { "inline_keyboard" : inline_btn_list };
+  sendText(id, "Listing :", keyboard );
+}
+
+function RemoveWebhook() {
+  var url = telegramUrl + "/deleteWebhook";
+  var response = UrlFetchApp.fetch(url);
+  Logger.clear;
+  Logger.log(url);
+  Logger.log(response);
+}
+
+function WebhookInfo() {
+  var url = telegramUrl + "/getWebhookInfo";  
+  var response = UrlFetchApp.fetch(url);
+  Logger.clear;
+  Logger.log(url);
+  Logger.log(response);
+  var resp = response.getContentText().toString();
+  var pos = resp.indexOf("ip_address");
+  if ( pos > 0) {
+    return 1;
+  }
+  return 0
+}
+
+function setWebhook() {
+  var url = telegramUrl + "/setWebhook?url=" + webhook;
+  var response = UrlFetchApp.fetch(url);  
+  Logger.clear;  
+  Logger.log(url);
+  Logger.log(response);
+}
+
+function sendMessage(id, msg) {
+  var data = {
+    method: "post",
+    payload: {
+      method: "sendMessage",
+      chat_id: String(id),
+      text: msg,
+      parse_mode: "HTML",
+
+    }
+  };
+  try {
+    var response = UrlFetchApp.fetch( telegramUrl + "/", data);
+    var resp = response.getContentText().toString();
+    return resp;
+  } 
+  catch ( e ) {
+    return "Unable to send message";
+  }
+}
+
+function sendText(chatId, text, keyBoard) {
+  var data = {
+    method: "post",
+    payload: {
+      method: "sendMessage",
+      chat_id: String(chatId),
+      text: text,
+      parse_mode: "HTML",
+      reply_markup: JSON.stringify(keyBoard)
+    }
+  };
+  UrlFetchApp.fetch( telegramUrl + '/', data);
+}
+
+function sendKeyboard(chatId, choices, text = 'Menu') {
+  const buttons = transformArrayToKeyboard(choices);
+  const replyKeyboardMarkup = {keyboard: buttons, 
+                one_time_keyboard: true,
+                resize_keyboard: true};
+  const replyMarkup = JSON.stringify(replyKeyboardMarkup);
+  const url = telegramUrl + '/sendMessage?chat_id=' + encodeURIComponent(chatId) + '&text=' + encodeURIComponent(text) + '&disable_web_page_preview=true&reply_markup=' + encodeURIComponent(replyMarkup);
+  const response = UrlFetchApp.fetch(url);
+}
+
+function transformArrayToKeyboard(choices) {
+  const maxLengthRowKeyboardMenu = 3;
+  const arr = choices.map(item => ({text: item }));
+  const result = [];
+  let index = 0;
+  while(arr.slice(index).length > 0) {
+    const newRowValuesForButtons = arr.slice(index,index+maxLengthRowKeyboardMenu);
+    result.push(newRowValuesForButtons);
+    index += maxLengthRowKeyboardMenu;
+  }
+  return result;
+}
