@@ -24,7 +24,7 @@ Click "New Project"
 
 Click on the "Untitled project" to rename the project as something else. Example, "Ebooks bot".
 
-![image](https://user-images.githubusercontent.com/32192638/229261896-d8f3527a-39d9-4ebe-8ea5-3dd86232e95e.png)
+![image](https://user-images.githubusercontent.com/32192638/229262072-5c90f86e-3459-42f5-b283-120079de578a.png)
 
 
 [3] Write the scripts, copy paste from below template url :
@@ -62,7 +62,8 @@ var webhook = "___your web app url__";
 
 [6] Update the values of token in the script.
 
-Find your Telegram chatbot token by logging into the BotFather in Telegram, selecting your bot, and clicking the "API Token" button.
+Find your Telegram chatbot token by logging into the BotFather in Telegram, selecting your bot, 
+and clicking the "API Token" button.
 ( see https://www.youtube.com/watch?v=aNmRNjME6mE )
 
 Change the value of statement, paste the bot token into here.
@@ -80,7 +81,8 @@ var FOLDER_NAME = "eBooks"; // assuming there is a folder called eBooks in your 
 
 since the code has been changed, need to udpate the value of webhook in [7].
 
-[9] Run the "setWebhook" function for only once to make sure actual telegram bot able to callback this google web app.
+[9] Run the "setWebhook" function for only once to make sure actual telegram bot 
+able to callback this google web app.
 ![image](https://user-images.githubusercontent.com/32192638/209759943-7c559c72-9a68-4b45-a864-639a3b9e11e6.png)
 
 Your telegram bot is ready !
