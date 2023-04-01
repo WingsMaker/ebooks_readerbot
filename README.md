@@ -3,11 +3,6 @@ A telegram bot shares the list of ebooks with URL, reader can clicks on the link
 
 https://user-images.githubusercontent.com/32192638/229262599-f7b6ee9f-c637-4c57-b948-a5ddfe4ea815.mp4
 
-![image](https://user-images.githubusercontent.com/32192638/229261608-8df4dd8e-6904-4b3b-9532-604fa530229e.png)
-
-Example of above ebook being clicked
-
-![image](https://user-images.githubusercontent.com/32192638/229261705-28950827-29db-426d-909d-00cfffd3b1d5.png)
 
 
 # Requirements
