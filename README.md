@@ -1,8 +1,10 @@
 # ebooks_readerbot
-A telegram bot shares the list of ebooks with URL, reader can clicks on the link to read the PDF
+A telegram bot shares the list of ebooks with URL, reader can clicks on the link to read the ebooks file.
+
 ![image](https://user-images.githubusercontent.com/32192638/229261608-8df4dd8e-6904-4b3b-9532-604fa530229e.png)
 
-Example of abov ebook being clicked
+Example of above ebook being clicked
+
 ![image](https://user-images.githubusercontent.com/32192638/229261705-28950827-29db-426d-909d-00cfffd3b1d5.png)
 
 
