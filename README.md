@@ -16,18 +16,15 @@ Example of above ebook being clicked
 [1] Goto https://script.google.com/home , click "New Project" 
 ![image](https://user-images.githubusercontent.com/32192638/209757404-15c3ba33-7a4c-4804-9634-eb417d8069b2.png)
 
+[2] Rename the project
 
-[2] Write the scripts, copy paste from below template url :
+Click on the "Untitled project" to rename the project as something else. Example, "Ebooks bot".
+
+[3] Write the scripts, copy paste from below template url :
 
 https://raw.githubusercontent.com/WingsMaker/ebooks_readerbot/main/ebooks_readerbot.txt
 
 ![image](https://user-images.githubusercontent.com/32192638/229261805-e614d884-bfe5-4146-8c92-fccee8509eb1.png)
-
-[3] Rename the project
-
-Click on the "Untitled project" to rename the project as something else. Example, "Ebooks bot".
-
-![image](https://user-images.githubusercontent.com/32192638/209757895-ce873366-3f4b-4063-96ba-1ecb76d07566.png)
 
 [4] Deploy as google web app
 In the Google App Script project, go to "Publish" in the top navigation bar. 
