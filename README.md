@@ -13,14 +13,16 @@ Example of above ebook being clicked
 - Telegram chatbot token, see https://t.me/BotFather
 
 # Getting Started - Google App Script Project
-[1] Goto https://script.google.com/home , click "New Project" 
-![image](https://user-images.githubusercontent.com/32192638/209757404-15c3ba33-7a4c-4804-9634-eb417d8069b2.png)
-
-[2] Rename the project
-
-Click on the "Untitled project" to rename the project as something else. Example, "Ebooks bot".
+[1] Goto https://script.google.com/home 
+Click "New Project" 
 
 ![image](https://user-images.githubusercontent.com/32192638/229261896-d8f3527a-39d9-4ebe-8ea5-3dd86232e95e.png)
+
+[2] Rename the project
+Click on the "Untitled project" to rename the project as something else. Example, "Ebooks bot".
+
+![image](https://user-images.githubusercontent.com/32192638/209757404-15c3ba33-7a4c-4804-9634-eb417d8069b2.png)
+
 
 [3] Write the scripts, copy paste from below template url :
 
