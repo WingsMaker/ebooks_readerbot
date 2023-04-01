@@ -14,7 +14,8 @@ A telegram bot shares the list of ebooks with URL, reader can clicks on the link
 
 https://raw.githubusercontent.com/WingsMaker/ebooks_readerbot/main/ebooks_readerbot.txt
 
-![image](https://user-images.githubusercontent.com/32192638/209757618-56b172a8-5356-43c2-b215-64e4bff19d85.png)
+![image](https://user-images.githubusercontent.com/32192638/229261534-28371304-b45e-4674-9a7a-a6f409d4661c.png)
+
 
 [3] Rename the project
 
