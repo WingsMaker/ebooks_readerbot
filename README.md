@@ -20,6 +20,8 @@ Example of above ebook being clicked
 
 Click on the "Untitled project" to rename the project as something else. Example, "Ebooks bot".
 
+![image](https://user-images.githubusercontent.com/32192638/229261896-d8f3527a-39d9-4ebe-8ea5-3dd86232e95e.png)
+
 [3] Write the scripts, copy paste from below template url :
 
 https://raw.githubusercontent.com/WingsMaker/ebooks_readerbot/main/ebooks_readerbot.txt
